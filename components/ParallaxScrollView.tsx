@@ -1,5 +1,5 @@
 import type { PropsWithChildren, ReactElement } from 'react';
-import { useColorScheme } from 'react-native';
+import { Platform, useColorScheme, useWindowDimensions } from 'react-native';
 import Animated, {
   interpolate,
   useAnimatedRef,
@@ -9,7 +9,7 @@ import Animated, {
 
 import { ThemedView } from '@/components/ThemedView';
 
-const HEADER_HEIGHT = 250;
+const HEADER_HEIGHT = 100;
 
 type Props = PropsWithChildren<{
   headerImage: ReactElement;
@@ -25,6 +25,8 @@ export default function ParallaxScrollView({
   const colorScheme = 'light';
   const scrollRef = useAnimatedRef<Animated.ScrollView>();
   const scrollOffset = useScrollViewOffset(scrollRef);
+  const { width } = useWindowDimensions();
+  const isWideScreen = width > 768;
 
   const headerAnimatedStyle = useAnimatedStyle(() => {
     return {
@@ -45,17 +47,23 @@ export default function ParallaxScrollView({
 
   return (
     <ThemedView className="flex-1 bg-[#C5E4E7]">
-      <Animated.ScrollView ref={scrollRef} scrollEventThrottle={16} style={{ flexGrow: 1 }}>
+      <Animated.ScrollView
+        ref={scrollRef}
+        scrollEventThrottle={16}
+        contentContainerStyle={{ flexGrow: 1 }}
+      >
         <Animated.View
           style={[
             { backgroundColor: headerBackgroundColor[colorScheme] },
             headerAnimatedStyle,
           ]}
-          className="h-[150px] overflow-hidden justify-center items-center pb-[50px]"
+          className={`overflow-hidden justify-center items-center pb-[50px] ${Platform.OS === 'ios' ? 'h-[120px]' : 'h-[250px]'}`}
         >
           {headerImage}
         </Animated.View>
-        <ThemedView className="flex-1 p-[32px] overflow-hidden rounded-t-[25px]">
+        <ThemedView className="flex-1 p-[32px] overflow-hidden rounded-t-[25px] mx-auto"
+          style={{ paddingHorizontal: 32, maxWidth: isWideScreen ? '70%' : '100%' }}
+        >
           {children}
         </ThemedView>
       </Animated.ScrollView>
