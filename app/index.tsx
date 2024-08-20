@@ -1,4 +1,4 @@
-import { Image, Platform, StatusBar, TouchableOpacity, View, TextInput } from 'react-native';
+import { Image, Platform, StatusBar, TouchableOpacity, View, TextInput, KeyboardAvoidingView, useWindowDimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { HelloWave } from '@/components/HelloWave';
@@ -39,7 +39,7 @@ export default function HomeScreen() {
       setTotalPerPerson(totalPerPerson);
       setGrandTotal(totalAmount);
     }
-  }), [bill, selectedTip, people];
+  }, [bill, selectedTip, people]);
 
   const reset = () => {
     setBill('');
@@ -52,86 +52,91 @@ export default function HomeScreen() {
   return (
     <>
       <MyStatusBar />
-      <ParallaxScrollView
-        headerBackgroundColor={{ light: '#C5E4E7', dark: '#1D3D47' }}
-        headerImage={
-          <Image source={require('@/assets/images/SPLITTER.png')} />
-        }>
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      >
+        <ParallaxScrollView
+          headerBackgroundColor={{ light: '#C5E4E7', dark: '#1D3D47' }}
+          headerImage={
+            <Image source={require('@/assets/images/SPLITTER.png')} />
+          }>
 
-        <View className='mb-8'>
-          <ThemedText type="subtitle">Bill</ThemedText>
-          <TextInput
-            className='bg-[#F3F9FA] rounded-md py-3 px-4 text-right text-2xl font-bold text-primary'
-            keyboardType='numeric'
-            inputMode='numeric'
-            placeholder='9.99'
-            value={bill || ''}
-            placeholderTextColor={'#9EBBBD'}
-            onChangeText={(price) => handleInputChange(price, setBill)}
-            maxLength={5}
-          />
-          <TabBarIcon name={'logo-usd'} color="#9EBBBD" className='absolute bottom-4 left-4' />
-        </View>
-
-        <View className='mb-8'>
-          <ThemedText type="subtitle">Number of People</ThemedText>
-          <TextInput
-            className='bg-[#F3F9FA] rounded-md py-3 px-4 text-right text-2xl font-bold text-primary'
-            keyboardType='numeric'
-            inputMode='numeric'
-            placeholder='3'
-            value={people || ''}
-            placeholderTextColor={'#9EBBBD'}
-            onChangeText={(numOfPeople) => handleInputChange(numOfPeople, setPeople)}
-            maxLength={2}
-          />
-          <TabBarIcon name={'person'} color="#9EBBBD" className='absolute bottom-4 left-4' />
-        </View>
-
-        <View className='mb-8'>
-          <ThemedText type="subtitle">Select Tip %</ThemedText>
-          <View className="flex-row flex-wrap justify-between">
-            {TIPS.map((tip) => (
-              <TouchableOpacity
-                key={tip}
-                className={`w-[48%] p-3 mb-4 rounded-lg items-center ${selectedTip === tip ? 'bg-secondary' : 'bg-primary'
-                  }`}
-                onPress={() => setSelectedTip(tip)}
-              >
-                <ThemedText className={`font-bold text-3xl ${selectedTip === tip ? 'text-primary' : 'text-white'}`}>
-                  {tip}%
-                </ThemedText>
-              </TouchableOpacity>
-            ))}
+          <View className='mb-8'>
+            <ThemedText type="subtitle">Bill</ThemedText>
+            <TextInput
+              className='bg-[#F3F9FA] rounded-md py-3 px-4 text-right text-2xl font-bold text-primary'
+              keyboardType='numeric'
+              inputMode='numeric'
+              placeholder='9.99'
+              value={bill || ''}
+              placeholderTextColor={'#9EBBBD'}
+              onChangeText={(price) => handleInputChange(price, setBill)}
+              maxLength={5}
+            />
+            <TabBarIcon name={'logo-usd'} color="#9EBBBD" className='absolute bottom-4 left-4' />
           </View>
-        </View>
 
-        <View className="bg-primary rounded-2xl p-6 pt-10">
-          <View className="flex-row justify-between mb-4">
-            <View>
-              <ThemedText className="text-white font-bold text-lg">Tip Amount</ThemedText>
-              <ThemedText className="text-[#7F9C9F]">/ person</ThemedText>
+          <View className='mb-8'>
+            <ThemedText type="subtitle">Select Tip %</ThemedText>
+            <View className="flex-row flex-wrap justify-between">
+              {TIPS.map((tip) => (
+                <TouchableOpacity
+                  key={tip}
+                  className={`w-[48%] p-3 mb-4 rounded-lg items-center ${selectedTip === tip ? 'bg-secondary' : 'bg-primary'
+                    }`}
+                  onPress={() => setSelectedTip(tip)}
+                >
+                  <ThemedText className={`font-bold text-3xl ${selectedTip === tip ? 'text-primary' : 'text-white'}`}>
+                    {tip}%
+                  </ThemedText>
+                </TouchableOpacity>
+              ))}
             </View>
-            <ThemedText className="text-secondary font-bold text-4xl">
-              {totalPerPerson ? `$${totalPerPerson?.toFixed(2)}` : '...'}
-            </ThemedText>
           </View>
 
-          <View className="flex-row justify-between mb-8">
-            <View>
-              <ThemedText className="text-white font-bold text-lg">Total</ThemedText>
-              <ThemedText className="text-[#7F9C9F]">/ person</ThemedText>
+          <View className='mb-8'>
+            <ThemedText type="subtitle">Number of People</ThemedText>
+            <TextInput
+              className='bg-[#F3F9FA] rounded-md py-3 px-4 text-right text-2xl font-bold text-primary'
+              keyboardType='numeric'
+              inputMode='numeric'
+              placeholder='3'
+              value={people || ''}
+              placeholderTextColor={'#9EBBBD'}
+              onChangeText={(numOfPeople) => handleInputChange(numOfPeople, setPeople)}
+              maxLength={2}
+            />
+            <TabBarIcon name={'person'} color="#9EBBBD" className='absolute bottom-4 left-4' />
+          </View>
+
+          <View className="bg-primary rounded-2xl p-6 pt-10">
+            <View className="flex-row justify-between mb-4">
+              <View>
+                <ThemedText className="text-white font-bold text-lg">Tip Amount</ThemedText>
+                <ThemedText className="text-[#7F9C9F]">/ person</ThemedText>
+              </View>
+              <ThemedText className="text-secondary font-bold text-4xl">
+                {totalPerPerson ? `$${totalPerPerson?.toFixed(2)}` : '...'}
+              </ThemedText>
             </View>
-            <ThemedText className="text-secondary font-bold text-4xl">
-              {grandTotal ? `$${grandTotal?.toFixed(2)}` : '...'}
-            </ThemedText>
-          </View>
 
-          <TouchableOpacity onPress={reset} className="bg-secondary rounded-md py-3 items-center">
-            <ThemedText className="text-primary font-bold text-lg">RESET</ThemedText>
-          </TouchableOpacity>
-        </View>
-      </ParallaxScrollView>
+            <View className="flex-row justify-between mb-8">
+              <View>
+                <ThemedText className="text-white font-bold text-lg">Total</ThemedText>
+                <ThemedText className="text-[#7F9C9F]">/ person</ThemedText>
+              </View>
+              <ThemedText className="text-secondary font-bold text-4xl">
+                {grandTotal ? `$${grandTotal?.toFixed(2)}` : '...'}
+              </ThemedText>
+            </View>
+
+            <TouchableOpacity onPress={reset} className="bg-secondary rounded-md py-3 items-center">
+              <ThemedText className="text-primary font-bold text-lg">RESET</ThemedText>
+            </TouchableOpacity>
+          </View>
+        </ParallaxScrollView>
+      </KeyboardAvoidingView>
     </>
   );
 }
