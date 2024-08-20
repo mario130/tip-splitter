@@ -1,4 +1,5 @@
 import { Stack } from "expo-router";
+import { NativeWindStyleSheet } from "nativewind";
 
 export default function RootLayout() {
   return (
@@ -7,3 +8,7 @@ export default function RootLayout() {
     </Stack>
   );
 }
+
+NativeWindStyleSheet.setOutput({
+  default: "native",
+});
