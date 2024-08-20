@@ -21,6 +21,7 @@ export function ThemedText({
     <Text
       style={[
         { color },
+        styles.base,
         type === 'default' ? styles.default : undefined,
         type === 'title' ? styles.title : undefined,
         type === 'defaultSemiBold' ? styles.defaultSemiBold : undefined,
@@ -34,6 +35,9 @@ export function ThemedText({
 }
 
 const styles = StyleSheet.create({
+  base: {
+    fontFamily: 'SpaceMono',
+  },
   default: {
     fontSize: 16,
     lineHeight: 24,
@@ -51,6 +55,8 @@ const styles = StyleSheet.create({
   subtitle: {
     fontSize: 20,
     fontWeight: 'bold',
+    color: "#5E7A7D",
+    marginBottom: 8,
   },
   link: {
     lineHeight: 30,

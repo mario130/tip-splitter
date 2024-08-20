@@ -10,7 +10,8 @@ module.exports = {
       colors: {
         "primary": "#00474B",
         "secondary": "#26C2AE",
-        "header": "#C5E4E7",
+        "cover": "#C5E4E7",
+        "header": "#5E7A7D"
       }
     },
   },
