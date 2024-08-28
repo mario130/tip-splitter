@@ -1,50 +1,53 @@
-# Welcome to your Expo app 👋
+# Tip Splitter
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A React Native application for calculating tips, built with modern technologies like `nativewind` for styling and `react-native-reanimated` for animations.
 
-## Get started
+## Features
 
-1. Install dependencies
+- **Tip Calculation**: Easily calculate tips based on the bill amount and desired tip percentage.
+- **Parallax Scrolling**: Smooth parallax scrolling effect for a visually appealing user interface.
+- **Themed Components**: Support for light and dark themes.
+- **Platform-Specific Styles**: Custom styles for iOS and Android using `nativewind`.
+- **Responsive Design**: Ensures a great user experience on different screen sizes.
 
-   ```bash
-   npm install
-   ```
+## Installation
 
-2. Start the app
-
-   ```bash
-    npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
+1. Clone the repository:
+```sh
+  git clone https://github.com/mario130/tip-splitter.git
+  cd tip-calculator
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+2. Install dependencies:
 
-## Learn more
+```sh
+  npm install
+  # or
+  yarn install
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+3. Run the application:
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+```sh
+  npm start
+  # or
+  yarn start
+```
 
-## Join the community
+## Usage
 
-Join our community of developers creating universal apps.
+1. Open the app on your device or emulator.
+2. Enter the bill amount.
+3. Select the desired tip percentage.
+4. View the calculated tip and total amount.
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## Technologies used
+
+- React Native: For building the mobile application.
+- nativewind: For styling components with Tailwind CSS classes.
+- expo: For development and building the app.
+- react-native-safe-area-context: For handling safe area insets.
+
+## Contributing
+
+Contributions are welcome! Please open an issue or submit a pull request for any improvements or bug fixes.
