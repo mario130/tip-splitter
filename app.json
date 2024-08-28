@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "tip-calculator",
-    "slug": "tip-calculator",
+    "name": "tip-splitter",
+    "slug": "tip-splitter",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -31,6 +31,15 @@
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "dfdf3380-2bcb-4661-a151-dcb8742a5a79"
+      }
+    },
+    "owner": "mario130"
   }
 }
